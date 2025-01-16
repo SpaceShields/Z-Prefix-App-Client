@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #EBEBEB;
+  --foreground: #2A2A2A;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #2A2A2A;
+    --foreground: #EBEBEB;
   }
 }
 
@@ -18,4 +18,33 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.card_grid {
+  @apply grid lg:grid-cols-2 sm:grid-cols-1 xl:grid-cols-3 gap-5 w-10/12 justify-center mx-auto;
+}
+
+.card_grid-sm {
+  @apply grid sm:grid-cols-2 gap-5;
+}
+
+ /* itemcard */
+ .item-card {
+  @apply backdrop-blur-lg py-6 px-5 rounded-xl shadow-md shadow-black;
+}
+
+.item-card_name {
+  @apply text-xl text-black bg-[#C5FABE] px-4 py-2 rounded-full;
+}
+
+.item-card_desc {
+  @apply text-[16px] line-clamp-2 my-3 text-white break-all;
+}
+
+.item-card_btn {
+  @apply rounded-xl bg-blue-500 text-[16px] text-white px-5 py-2 hover:shadow-inner hover:shadow-black !important;
 }
