@@ -7,6 +7,7 @@ import LoginButton from './Login/LoginButton';
 import LogoutButton from './LogoutButton';
 import { getCookie } from '../actions';
 import CreateItemButton from './Inventory/CreateItemButton';
+import DashboardButton from './Dashboard/DashboardButton';
 
 const Navbar = () => {
 
@@ -24,6 +25,7 @@ const Navbar = () => {
         <div className='my-auto'>
             { token == '' ? <LoginButton /> : (
                 <div className='flex gap-3'>
+                    <DashboardButton />
                     <CreateItemButton />
                     <LogoutButton />
                 </div>

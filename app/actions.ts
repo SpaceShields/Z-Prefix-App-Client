@@ -31,6 +31,81 @@ export const getAllItems = async () => {
     return data;
 }
 
+export const getAllItemsByUser = async () => {
+    const token = await getCookie('accessToken');
+
+    const res = await fetch(`http://localhost:5000/items/user`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        },
+        cache: 'no-cache'
+    });
+
+    const data = res.json();
+
+    return data;
+}
+
+export const createItem = async (previousState: any, formData: FormData) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    try {
+
+        const token = await getCookie('accessToken');
+
+        // Store form data to local object
+        const itemData = {
+            itemName: formData.get('itemName'),
+            description: formData.get('description'),
+            quantity: parseInt(formData.get('quantity')?.valueOf().toString() || '0')
+        }
+
+        // Simple validation
+        if(itemData.itemName == '') return 'itemName is required';
+        if(itemData.description == '') return 'description is required';
+        if(itemData.quantity == 0) return 'quantity is required';
+
+        // Send login request
+        const res = await fetch(`http://localhost:5000/items`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(itemData)
+        });
+
+        // Handle response
+        const data = await res.json();
+
+        // Check for errors
+        if(data.error) return data.error;
+
+    } catch (error) {
+        return 'An error occurred';
+    } 
+    redirect('/dashboard');
+}
+
+export const deleteItem = async (itemId : string) => {
+    const token = await getCookie('accessToken');
+
+    const res = await fetch(`http://localhost:5000/items/${itemId}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+    if(data.error) return data.error;
+
+    revalidatePath(`/dashboard`);
+}
+
 export const loginUser = async (previousState: any, formData: FormData) => {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -110,7 +185,7 @@ export const registerUser = async (previousState: any, formData: FormData) => {
 
 export const logoutUser = async () => {
     (await cookies()).delete('accessToken');
-    revalidatePath('/');
+    redirect('/');
 }
 
 export async function setCookie({

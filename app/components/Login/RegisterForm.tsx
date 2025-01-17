@@ -7,9 +7,9 @@ const LoginForm = () => {
 
     const [state, formAction, isPending] = useActionState<string, FormData>(registerUser, '');
     const [value, setValue] = useState<any>({
-        firstName: '',
-        lastName: '',
-        username: '',
+        firstName: undefined,
+        lastName: undefined,
+        username: undefined,
     });
 
 

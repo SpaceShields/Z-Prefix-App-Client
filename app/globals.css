@@ -38,7 +38,7 @@ body {
 }
 
 .item-card_name {
-  @apply text-xl text-black bg-[#C5FABE] px-4 py-2 rounded-full;
+  @apply text-xl bg-[#8E7DBE] px-4 py-2 rounded-full;
 }
 
 .item-card_desc {
@@ -46,5 +46,5 @@ body {
 }
 
 .item-card_btn {
-  @apply rounded-xl bg-blue-500 text-[16px] text-white px-5 py-2 hover:shadow-inner hover:shadow-black !important;
+  @apply rounded-xl bg-[#2FA8FA] text-[16px] text-white px-5 py-2 hover:shadow-inner hover:shadow-black !important;
 }
