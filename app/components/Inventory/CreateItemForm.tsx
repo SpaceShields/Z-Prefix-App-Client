@@ -4,26 +4,25 @@ import { createItem } from '@/app/actions';
 import React, { useActionState, useState } from 'react'
 
 const CreateItemForm = () => {
-  const [state, formAction, isPending] = useActionState<string, FormData>(createItem, '');
-      const [value, setValue] = useState<any>({
-          itemName: '',
-          description: '',
-          quantity: '',
-      });
+    const [state, formAction, isPending] = useActionState<string, FormData>(createItem, '');
+    const [value, setValue] = useState<any>({
+        itemName: '',
+        description: '',
+        quantity: '',
+    });
   
-  
-      const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-          const name = e.target.value;
-          setValue({ ...value, itemName: name });
-      }
-      const onChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
-          const description = e.target.value;
-          setValue({ ...value, description: description });
-      }
-      const onChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
-          const quantity = e.target.value;
-          setValue({ ...value, quantity: quantity });
-      }
+    const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.value;
+        setValue({ ...value, itemName: name });
+    }
+    const onChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const description = e.target.value;
+        setValue({ ...value, description: description });
+    }
+    const onChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const quantity = e.target.value;
+        setValue({ ...value, quantity: quantity });
+    }
   
     return (
       <div className='w-full py-3 px-6 text-center'>

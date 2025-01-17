@@ -4,48 +4,79 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const getItem = async ({ itemId } : { itemId: string }) => {
+    try {
+        const res = await fetch(`http://localhost:5000/items/${itemId}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            cache: 'reload'
+        });
 
-    const res = await fetch(`http://localhost:5000/items/${itemId}`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
+        const data = res.json();
 
-    const data = res.json();
-
-    return data;
+        return data;
+    } catch (error) {
+        return 'An error occurred';
+    }
 }
 
 export const getAllItems = async () => {
-    const res = await fetch(`http://localhost:5000/items`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        cache: 'no-cache'
-    });
+    try {
+        const res = await fetch(`http://localhost:5000/items`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            cache: 'no-cache'
+        });
 
-    const data = res.json();
+        const data = res.json();
 
-    return data;
+        return data;
+    } catch (error) {
+        return 'An error occurred';
+    }
+}
+
+export const getAllItemsByUserId = async ({ itemId } : { itemId: string }) => {
+    try {
+        const res = await fetch(`http://localhost:5000/items/user/${itemId}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            cache: 'no-cache'
+        });
+
+        const data = res.json();
+
+        return data;
+    } catch (error) {
+        return 'An error occurred';
+    }
 }
 
 export const getAllItemsByUser = async () => {
-    const token = await getCookie('accessToken');
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+       const token = await getCookie('accessToken');
 
-    const res = await fetch(`http://localhost:5000/items/user`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": `Bearer ${token}`
-        },
-        cache: 'no-cache'
-    });
+        const res = await fetch(`http://localhost:5000/items/user`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            },
+            cache: 'no-cache'
+        });
 
-    const data = res.json();
+        const data = await res.json();
 
-    return data;
+        return data; 
+    } catch (error) {
+        return 'An error occurred';
+    }
 }
 
 export const createItem = async (previousState: any, formData: FormData) => {
@@ -89,21 +120,70 @@ export const createItem = async (previousState: any, formData: FormData) => {
     redirect('/dashboard');
 }
 
-export const deleteItem = async (itemId : string) => {
-    const token = await getCookie('accessToken');
+export const updateItem = async (previousState: any, formData: FormData) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const res = await fetch(`http://localhost:5000/items/${itemId}`, {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": `Bearer ${token}`
+    try {
+
+        const token = await getCookie('accessToken');
+
+        const itemId = formData.get('id');
+
+        // Store form data to local object
+        const itemData = {
+            itemName: formData.get('itemName'),
+            description: formData.get('description'),
+            quantity: parseInt(formData.get('quantity')?.valueOf().toString() || '0')
         }
-    });
 
-    const data = await res.json();
-    if(data.error) return data.error;
+        // Simple validation
+        if(itemData.itemName == '') return 'itemName is required';
+        if(itemData.description == '') return 'description is required';
+        if(itemData.quantity == 0) return 'quantity is required';
 
-    revalidatePath(`/dashboard`);
+        // Send login request
+        const res = await fetch(`http://localhost:5000/items/${itemId}`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(itemData)
+        });
+
+        // Handle response
+        const data = await res.json();
+
+        // Check for errors
+        if(data.error) return data.error;
+
+        revalidatePath('/', 'layout');
+
+    } catch (error) {
+        return 'An error occurred';
+    } 
+}
+
+export const deleteItem = async (itemId : string) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+        const token = await getCookie('accessToken');
+
+        const res = await fetch(`http://localhost:5000/items/${itemId}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            }
+        });
+
+        const data = await res.json();
+        if(data.error) return data.error;
+
+        revalidatePath(`/dashboard`);
+    } catch (error) {
+        return 'An error occurred';
+    }
 }
 
 export const loginUser = async (previousState: any, formData: FormData) => {
@@ -136,8 +216,9 @@ export const loginUser = async (previousState: any, formData: FormData) => {
         // Check for errors
         if(data.error) return data.error;
 
-        // Set cookie
-        setCookie({key: 'accessToken', value: data.accessToken});  
+        // Set cookies
+        setCookie({key: 'accessToken', value: data.accessToken}); 
+        setCookie({key: 'currentUser', value: userLoginData.username?.toString() || ''});  
 
     } catch (error) {
         return 'An error occurred';
@@ -185,6 +266,7 @@ export const registerUser = async (previousState: any, formData: FormData) => {
 
 export const logoutUser = async () => {
     (await cookies()).delete('accessToken');
+    (await cookies()).delete('currentUser');
     redirect('/');
 }
 

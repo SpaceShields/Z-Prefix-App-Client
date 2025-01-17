@@ -15,13 +15,16 @@ const ItemCard = ({item}: {item: any}) => {
         <p className='item-card_description my-5 py-2'>{formatDesc(description)}</p>
         <div className='flex-between'>
             <Link href={`/profile/${userId}`}>
-                <p className='line-clamp-1 px-2 py-1 rounded-lg shadow-inner shadow-black hover:text-[#2FA8FA]'>@{username}</p>
+                <button>
+                    <p className='line-clamp-1 px-2 py-1 rounded-lg shadow-inner shadow-black hover:text-[#2FA8FA]'>@{username}</p>
+                </button>
             </Link>
-            <button className='item-card_btn'>
-                <Link href={`/items/${id}`}>
+            
+            <Link href={`/items/${id}`}>
+                <button className='item-card_btn'>
                     Details
-                </Link>
-            </button>
+                </button>
+            </Link>
         </div>
     </li>
   )

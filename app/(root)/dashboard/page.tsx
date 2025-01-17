@@ -1,8 +1,9 @@
 'use client';
 
-import { deleteItem, getAllItemsByUser } from '@/app/actions';
+import { deleteItem, getAllItemsByUser, getCookie } from '@/app/actions';
 import { formatDesc } from '@/app/utils/formatDesc';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React, { Suspense, useEffect, useState } from 'react'
 
 interface Item {
@@ -15,10 +16,19 @@ interface Item {
 const DashboardPage = () => {
 
   const [items, setItems] = useState<Item[]>([]);
+  const [currenUser, setCurrenUser] = useState<string>('');
   
     useEffect(() => {
       const fetchItemData = async () => {
+
+        const token = await getCookie('accessToken');
+        const currentUser = await getCookie('currentUser');
+
+        setCurrenUser(currentUser);
+        if(token == '') redirect('/');
+
         const itemData = await getAllItemsByUser();
+
         if(itemData.error) {
           setItems([]);
         } else {
@@ -30,7 +40,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <p className="text-center my-2 mt-8 text-6xl font-exo py-5">DASHBOARD</p>
+      <p className="text-center my-2 mt-8 text-6xl font-exo py-5">{currenUser.toUpperCase()} DASHBOARD</p>
       <p className="text-center my-2 text-2xl font-exo">My Inventory</p>
       <Suspense fallback={<p>Loading...</p>}>
         <div className='rounded-lg pb-10 px-3 w-11/12 justify-self-center shadow-md shadow-primary'>
