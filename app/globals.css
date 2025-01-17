@@ -38,7 +38,7 @@ body {
 }
 
 .item-card_name {
-  @apply text-xl bg-[#8E7DBE] px-4 py-2 rounded-full;
+  @apply text-xl border-[#8E7DBE] border-2 px-4 py-2 rounded-full;
 }
 
 .item-card_desc {
