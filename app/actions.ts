@@ -224,7 +224,7 @@ export const loginUser = async (previousState: any, formData: FormData) => {
     } catch (error) {
         return 'An error occurred';
     } 
-    redirect('/');
+    redirect('/dashboard');
 }
 
 export const registerUser = async (previousState: any, formData: FormData) => {
