@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 
 export const getItem = async ({ itemId } : { itemId: string }) => {
     try {
@@ -157,17 +157,18 @@ export const updateItem = async (previousState: any, formData: FormData) => {
         // Check for errors
         if(data.error) return data.error;
 
-        revalidatePath('/', 'layout');
-
     } catch (error) {
         return 'An error occurred';
     } 
+    
+    revalidatePath('/items/[id]', 'layout');
 }
 
-export const deleteItem = async (itemId : string) => {
+export const deleteItem = async (previousState: any, formData: FormData) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     try {
         const token = await getCookie('accessToken');
+        const itemId = formData.get('id');
 
         const res = await fetch(`http://localhost:5000/items/${itemId}`, {
             method: 'DELETE',
@@ -180,10 +181,10 @@ export const deleteItem = async (itemId : string) => {
         const data = await res.json();
         if(data.error) return data.error;
 
-        revalidatePath(`/dashboard`);
     } catch (error) {
         return 'An error occurred';
     }
+    redirect('/dashboard');
 }
 
 export const loginUser = async (previousState: any, formData: FormData) => {

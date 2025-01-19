@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteItem, getAllItemsByUser, getCookie } from '@/app/actions';
+import { getAllItemsByUser, getCookie } from '@/app/actions';
 import { formatDesc } from '@/app/utils/formatDesc';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -17,9 +17,11 @@ const DashboardPage = () => {
 
   const [items, setItems] = useState<Item[]>([]);
   const [currenUser, setCurrenUser] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   
     useEffect(() => {
       const fetchItemData = async () => {
+        setIsLoading(true);
 
         const token = await getCookie('accessToken');
         const currentUser = await getCookie('currentUser');
@@ -34,6 +36,7 @@ const DashboardPage = () => {
         } else {
           setItems(itemData);
         }
+        setIsLoading(false);
       }
       fetchItemData();
     }, []);
@@ -67,18 +70,19 @@ const DashboardPage = () => {
                         </Link>
                       </button>
                     </td>
-                    <td className='justify-items-end'>
-                      <form className='text-red-500 pt-1 text-end' action={() => deleteItem(item.id.toString())}>
-                        <button>
+                    <td className='text-end'>
+                      <Link href={`/items/${item.id}/delete`} className='text-red-500 text-end'>
+                        <button className='hover:text-orange-500 mt-1'>
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                           </svg>
                         </button>
-                      </form>
+                      </Link>
                     </td>
                   </tr>))}
               </tbody>
               </table>
+              {isLoading && <p className='text-center text-yellow-500'>Loading...</p>}
           </div>
         </Suspense>
     </>
