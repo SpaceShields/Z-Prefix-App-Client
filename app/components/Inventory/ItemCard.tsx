@@ -7,7 +7,7 @@ const ItemCard = ({item}: {item: any}) => {
     const {id, itemName, description, quantity, user: {id: userId, username}} = item;
 
   return (
-    <li className='item-card'>
+    <li className='item-card' data-testid="item-card">
         <div className='flex-between'>
             <p className='item-card_name font-exo'>{itemName}</p>
             {quantity < 3 ? <p className='text-[#F02D3A]'>{quantity} Left in Stock!</p> : <p className='text-green-500'>{quantity} Left in Stock!</p>}

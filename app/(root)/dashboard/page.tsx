@@ -13,10 +13,10 @@ interface Item {
   quantity: number;
 }
 
-const DashboardPage = () => {
+const DashboardPage = ({ initialItems = [] }: { initialItems: Item[]}) => {
 
-  const [items, setItems] = useState<Item[]>([]);
-  const [currenUser, setCurrenUser] = useState<string>('');
+  const [items, setItems] = useState<Item[]>(initialItems);
+  const [currentUser, setCurrentUser] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   
     useEffect(() => {
@@ -26,7 +26,7 @@ const DashboardPage = () => {
         const token = await getCookie('accessToken');
         const currentUser = await getCookie('currentUser');
 
-        setCurrenUser(currentUser);
+        setCurrentUser(currentUser);
         if(token == '') redirect('/');
 
         const itemData = await getAllItemsByUser();
@@ -43,12 +43,12 @@ const DashboardPage = () => {
 
   return (
     <>
-      <p className="text-center my-2 mt-8 text-6xl font-exo py-5">{currenUser.toUpperCase()} DASHBOARD</p>
+      <p className="text-center my-2 mt-8 text-6xl font-exo py-5" data-testid='dashboard-title'>{currentUser.toUpperCase()} DASHBOARD</p>
       <p className="text-center my-2 text-2xl font-exo">My Inventory</p>
       <Suspense fallback={<p>Loading...</p>}>
         <div className='rounded-lg pb-10 px-3 w-11/12 justify-self-center shadow-md shadow-primary'>
         {items.length == 0 ? <p className='text-center text-[#F02D3A]'>No Items Found</p> : <p className='text-center text-green-500'>{items.length} Items Found</p>}
-              <table className='w-full justify-self-center table-auto border-separate border-spacing-4'>
+              <table className='w-full justify-self-center table-auto border-separate border-spacing-4' data-testid='items-table'>
               <thead className='bg-transparent pt-6 text-[#8E7DBE]'>
                   <tr>
                     <th className='text-left'>Name</th>

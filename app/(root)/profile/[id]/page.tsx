@@ -16,9 +16,11 @@ interface Item {
   quantity: number;
 };
 
-const UserProfilePage = ({ params }: { params: Promise<{ id: string }> }) => {
+const UserProfilePage = (
+  { params }: { params: Promise<{ id: string }> },
+  {initialItems = []}: {initialItems: Item[]}) => {
   
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>(initialItems);
     
   useEffect(() => {
     const fetchItemData = async () => {

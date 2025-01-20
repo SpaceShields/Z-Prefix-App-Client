@@ -9,9 +9,9 @@ import { getCookie } from '../actions';
 import CreateItemButton from './Inventory/CreateItemButton';
 import DashboardButton from './Dashboard/DashboardButton';
 
-const Navbar = () => {
+const Navbar = ({ initialToken = '' }: { initialToken: string }) => {
 
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState(initialToken);
 
     useEffect(() => {
         getCookie('accessToken').then((token) => setToken(token)).catch(() => setToken(''));
