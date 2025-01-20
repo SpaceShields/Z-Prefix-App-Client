@@ -21,13 +21,21 @@ export default function Home( { initialItems = [] }: { initialItems: Item[]}) {
   // const [isLoading, setIsLoading] = useState();
   const [items, setItems] = useState<Item[]>(initialItems);
   const [tableView, setTableView] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchItemData = async () => {
+      setIsLoading(true);
       const itemData = await getAllItems();
-      setItems(itemData);
+      if(itemData.error || items[0]?.itemName == undefined) {
+        setItems([]);
+      } else {
+        setItems(itemData);
+      }
+      setIsLoading(false);
     }
     fetchItemData();
+    console.log(items);
   }, []);
 
 
@@ -59,13 +67,15 @@ export default function Home( { initialItems = [] }: { initialItems: Item[]}) {
         :
       
         <ul className="card_grid pb-10" data-testid="items-list">
-          {
+          { isLoading || items[0]?.itemName == undefined ? <></> :
             items.map((item) => 
               <ItemCard key={item.id} item={item} data-testid="item-card" />
             )
           }
         </ul>
       }
+      {isLoading && <p className='text-center text-yellow-500'>Loading...</p>}
+      {isLoading || items[0]?.itemName == undefined ? <p className='text-center text-red-500'>Trouble Connection to Server</p> : <></>}
     </>
   );
 }
