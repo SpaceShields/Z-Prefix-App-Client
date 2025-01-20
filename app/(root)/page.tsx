@@ -74,7 +74,7 @@ export default function Home( { initialItems = [] }: { initialItems: Item[]}) {
         </ul>
       }
       {isLoading && <p className='text-center text-yellow-500'>Loading...</p>}
-      {isLoading || items[0]?.itemName == undefined ? <p className='text-center text-red-500'>Trouble Connection to Server</p> : <></>}
+      {!isLoading && items[0]?.itemName == undefined ? <p className='text-center text-red-500'>Attempting Server Connection</p> : <></>}
     </>
   );
 }
