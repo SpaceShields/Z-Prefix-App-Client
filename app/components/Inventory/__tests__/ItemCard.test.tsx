@@ -48,7 +48,7 @@ describe('Item Card with high quantity', () => {
     });
 
     it('should render item quantity', () => {
-        const itemQuantity = screen.getByText('5 Left in Stock!');
+        const itemQuantity = screen.getByText('5 Left in Vault!');
         expect(itemQuantity).toBeInTheDocument();
         expect(itemQuantity).toHaveClass('text-green-500');
     });
@@ -70,7 +70,7 @@ describe('Item Card with low quantity', () => {
     });
 
     it('should render item quantity', () => {
-        const itemQuantity = screen.getByText('1 Left in Stock!');
+        const itemQuantity = screen.getByText('1 Left in Vault!');
         expect(itemQuantity).toBeInTheDocument();
         expect(itemQuantity).toHaveClass('text-[#F02D3A]');
     });

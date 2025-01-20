@@ -10,7 +10,7 @@ const ItemCard = ({item}: {item: any}) => {
     <li className='item-card' data-testid="item-card">
         <div className='flex-between'>
             <p className='item-card_name font-exo'>{itemName}</p>
-            {quantity < 3 ? <p className='text-[#F02D3A]'>{quantity} Left in Stock!</p> : <p className='text-green-500'>{quantity} Left in Stock!</p>}
+            {quantity < 3 ? <p className='text-[#F02D3A]'>{quantity} Left in Vault!</p> : <p className='text-green-500'>{quantity} Left in Vault!</p>}
         </div>
         <p className='item-card_description my-5 py-2'>{formatDesc(description)}</p>
         <div className='flex-between'>
