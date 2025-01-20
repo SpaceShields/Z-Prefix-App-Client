@@ -44,11 +44,19 @@ Ensure you have the following installed on your system:
    npm install
    ```
 
-### Running the Development Server
+### Running the Development Client
 
-Start the development server with:
+Start the development client with:
 
 ```bash
+npm run dev
+```
+Open a new terminal to run the Node.js server:
+[server repo found here](https://github.com/SpaceShields/Z-Prefix-App-Server)
+(follow README for server instructions)
+
+```bash
+cd Z-Prefix-App-Server
 npm run dev
 ```
 

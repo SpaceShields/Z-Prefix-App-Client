@@ -27,7 +27,7 @@ export default function Home( { initialItems = [] }: { initialItems: Item[]}) {
     const fetchItemData = async () => {
       setIsLoading(true);
       const itemData = await getAllItems();
-      if(itemData.error || items[0]?.itemName == undefined) {
+      if(itemData.error || itemData[0]?.itemName == undefined) {
         setItems([]);
       } else {
         setItems(itemData);
