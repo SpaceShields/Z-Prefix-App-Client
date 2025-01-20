@@ -35,7 +35,6 @@ export default function Home( { initialItems = [] }: { initialItems: Item[]}) {
       setIsLoading(false);
     }
     fetchItemData();
-    console.log(items);
   }, []);
 
 
