@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Z-Prefix App Client
+
+This repository contains the client-side application for the Z-Prefix 15-21JAN2025 RAP project, built using Next.js.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Available Scripts](#available-scripts)
+- [Project Structure](#project-structure)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy of the project up and running, follow these steps:
+
+### Prerequisites
+
+Ensure you have the following installed on your system:
+
+- [Node.js](https://nodejs.org/) (version 23.6.0)
+- [npm](https://www.npmjs.com/) (version 11.0.0)
+- [Next.js](https://nextjs.org/) (version 15.1.4)
+- [react](https://react.dev/) (version 19.0.0)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/SpaceShields/Z-Prefix-App-Client.git
+   ```
+
+2. **Navigate to the project directory:**
+
+   ```bash
+   cd Z-Prefix-App-Client
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+### Running the Development Server
+
+Start the development server with:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application. The page will automatically reload if you make edits.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+In the project directory, you can run:
 
-## Learn More
+- **`npm run dev`**: Starts the development server.
+- **`npm run build`**: Builds the application for production.
+- **`npm start`**: Starts the production server.
+- **`npm run lint`**: Runs ESLint to identify and fix linting errors.
+- **`npm test`**: Runs Jest to execute the test suites.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project's file structure is organized as follows:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+Z-Prefix-App-Client/
+├── app/                    # Application source code
+│   ├── page.tsx            # Main page component
+│   └── ...                 # Other components and pages
+├── public/                 # Public assets
+│   └── ...                 # Images, icons, etc.
+├── .gitignore              # Git ignore file
+├── README.md               # Project README
+├── eslint.config.mjs       # ESLint configuration
+├── jest.config.ts          # Jest configuration
+├── jest.setup.ts           # Jest setup file
+├── next.config.ts          # Next.js configuration
+├── package-lock.json       # Package lock file
+├── package.json            # Package manifest
+├── postcss.config.mjs      # PostCSS configuration
+├── tailwind.config.ts      # Tailwind CSS configuration
+└── tsconfig.json           # TypeScript configuration
+```
 
-## Deploy on Vercel
+## Technologies Used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js**: A React framework for server-side rendering and static site generation.
+- **TypeScript**: A superset of JavaScript that adds static typing.
+- **Tailwind CSS**: A utility-first CSS framework for styling.
+- **ESLint**: A tool for identifying and fixing linting errors in code.
+- **Jest**: A testing framework for JavaScript and TypeScript applications.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Commit your changes (`git commit -m 'Add YourFeature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
