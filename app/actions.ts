@@ -5,7 +5,7 @@ import { redirect, RedirectType } from 'next/navigation';
 
 export const getItem = async ({ itemId } : { itemId: string }) => {
     try {
-        const res = await fetch(`http://localhost:5000/items/${itemId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items/${itemId}`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
@@ -22,8 +22,9 @@ export const getItem = async ({ itemId } : { itemId: string }) => {
 }
 
 export const getAllItems = async () => {
+    console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items`);
     try {
-        const res = await fetch(`http://localhost:5000/items`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
@@ -41,7 +42,7 @@ export const getAllItems = async () => {
 
 export const getAllItemsByUserId = async ({ itemId } : { itemId: string }) => {
     try {
-        const res = await fetch(`http://localhost:5000/items/user/${itemId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items/user/${itemId}`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
@@ -62,7 +63,7 @@ export const getAllItemsByUser = async () => {
     try {
        const token = await getCookie('accessToken');
 
-        const res = await fetch(`http://localhost:5000/items/user`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items/user`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -99,7 +100,7 @@ export const createItem = async (previousState: any, formData: FormData) => {
         if(itemData.quantity == 0) return 'quantity is required';
 
         // Send login request
-        const res = await fetch(`http://localhost:5000/items`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -142,7 +143,7 @@ export const updateItem = async (previousState: any, formData: FormData) => {
         if(itemData.quantity == 0) return 'quantity is required';
 
         // Send login request
-        const res = await fetch(`http://localhost:5000/items/${itemId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items/${itemId}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -170,7 +171,7 @@ export const deleteItem = async (previousState: any, formData: FormData) => {
         const token = await getCookie('accessToken');
         const itemId = formData.get('id');
 
-        const res = await fetch(`http://localhost:5000/items/${itemId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items/${itemId}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
@@ -203,7 +204,7 @@ export const loginUser = async (previousState: any, formData: FormData) => {
         if(userLoginData.password == '') return 'Password is required';
 
         // Send login request
-        const res = await fetch(`http://localhost:5000/users/login`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -244,7 +245,7 @@ export const registerUser = async (previousState: any, formData: FormData) => {
         if(userRegisterData.password == '') return 'Password is required';
 
         // Send register request
-        const res = await fetch(`http://localhost:5000/users`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

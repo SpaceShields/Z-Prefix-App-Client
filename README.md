@@ -46,6 +46,12 @@ Ensure you have the following installed on your system:
 
 ### Running the Development Client
 
+Create a `.env` file in the root of the project with the following keys:
+```env
+NEXT_PUBLIC_API_BASE_URL=<your-server-connection-endpoint>
+```
+Default server connection endpoint is http://localhost:5000
+
 Start the development client with:
 
 ```bash
@@ -79,7 +85,7 @@ The project's file structure is organized as follows:
 ```
 Z-Prefix-App-Client/
 ├── app/                    # Application source code
-│   ├── page.tsx            # Main page component
+│   ├── (root)              # Root layout with main page.tsx
 │   └── ...                 # Other components and pages
 ├── public/                 # Public assets
 │   └── ...                 # Images, icons, etc.
