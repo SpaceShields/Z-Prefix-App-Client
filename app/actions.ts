@@ -1,7 +1,7 @@
 "use server";
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import { redirect, RedirectType } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export const getItem = async ({ itemId } : { itemId: string }) => {
     try {

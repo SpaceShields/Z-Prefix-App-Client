@@ -1,5 +1,4 @@
 import CreateItemForm from '@/app/components/Inventory/CreateItemForm'
-import Image from 'next/image'
 import React from 'react'
 
 const CreateItemPage = () => {

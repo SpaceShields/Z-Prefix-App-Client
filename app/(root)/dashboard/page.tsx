@@ -13,7 +13,8 @@ interface Item {
   quantity: number;
 }
 
-const DashboardPage = ({ initialItems = [] }: { initialItems: Item[]}) => {
+export default function DashboardPage( { props } : { props: Item[] } ) {
+  const initialItems = props || [];
 
   const [items, setItems] = useState<Item[]>(initialItems);
   const [currentUser, setCurrentUser] = useState<string>('');
@@ -88,5 +89,3 @@ const DashboardPage = ({ initialItems = [] }: { initialItems: Item[]}) => {
     </>
   )
 }
-
-export default DashboardPage

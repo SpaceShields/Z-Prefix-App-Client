@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import DashboardPage from '../page';
 import React from 'react';
 
@@ -32,7 +32,7 @@ jest.mock('../../../actions', () => ({
 
 describe('Dashboard Page', () => {
     beforeEach(() => {
-        render(<DashboardPage initialItems={mockItems} />);
+        render(<DashboardPage props={mockItems} />);
     });
 
     it('should render the dashboard title', () => {
