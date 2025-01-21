@@ -1,7 +1,7 @@
 "use server";
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 
 export const getItem = async ({ itemId } : { itemId: string }) => {
     try {
@@ -22,7 +22,6 @@ export const getItem = async ({ itemId } : { itemId: string }) => {
 }
 
 export const getAllItems = async () => {
-    console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items`);
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/items`, {
             method: 'GET',
@@ -269,6 +268,7 @@ export const registerUser = async (previousState: any, formData: FormData) => {
 export const logoutUser = async () => {
     (await cookies()).delete('accessToken');
     (await cookies()).delete('currentUser');
+    revalidatePath('/', 'layout');
     redirect('/');
 }
 
